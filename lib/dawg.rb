@@ -31,6 +31,9 @@ class DawgNode
   def eql?(other)
       to_s == other.to_s
   end
+  def inspect
+    "to_s"
+  end
 end
 
 class Dawg
@@ -157,5 +160,8 @@ class Dawg
       count += node.edges.length
     end
     count
+  end
+  def inspect
+    "Dawg"    
   end
 end
