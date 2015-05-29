@@ -18,6 +18,8 @@ Or install it yourself as:
 
 ## Usage
     # Words must be added in alphabetical order
+    require "dawg"
+    
     dawg = Dawg.new
     dawg.insert("cat")
     dawg.insert("dog")
