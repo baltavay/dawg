@@ -19,7 +19,7 @@ Or install it yourself as:
 ## Usage
     # Words must be added in alphabetical order
     require "dawg"
-    
+
     dawg = Dawg.new
     dawg.insert("cat")
     dawg.insert("dog")
@@ -27,11 +27,13 @@ Or install it yourself as:
 
     dawg.lookup("cat")
     => true
-    dawg.find_similar("ca")
+    dawg.query("ca")
     => ["cat"]
 
-    dawg.save("dawg.dat")
-    dawg = Dawg.load("dawg.dat")
+    dawg.save("dawg.bin")
+
+    dawg = Dawg.load("dawg.bin", :small) # :small is default and it's saves your ram
+    dawg = Dawg.load("dawg.dat", :fast) # :fast is working faster but eats ram
 
 
 ## Contributing
