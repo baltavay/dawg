@@ -12,7 +12,7 @@ module Dawg
           node = next_node
           next
         else
-          return ['']
+          return false
         end
       end
       node.final
@@ -33,7 +33,7 @@ module Dawg
       end
       results << Word.new(word, node.final)
       results += get_childs(node).map{|s| Word.new(word) + s}
-      results.select{|r| r.final}.map{|r| r}
+      results.select{|r| r.final}.map{|r| r.to_s }
     end
 
     def get_childs(node)
