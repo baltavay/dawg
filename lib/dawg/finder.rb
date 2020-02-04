@@ -8,12 +8,9 @@ module Dawg
       node = @the_node
       word.each_char do |letter|
         next_node = node[letter]
-        if next_node != nil
-          node = next_node
-          next
-        else
-          return false
-        end
+        return fasel if next_node.nil?
+
+        node = next_node
       end
       node.final
     end
@@ -21,15 +18,12 @@ module Dawg
     # get all words with given prefix
     def query(word)
       node = @the_node
-      results = []
-      word.split("").each do |letter|
+
+      word.split('').each do |letter|
         next_node = node[letter]
-        if next_node != nil
-          node = next_node
-          next
-        else
-          return ['']
-        end
+        return [] if next_node.nil?
+
+        node = next_node
       end
 
       Enumerator.new do |result|
@@ -45,12 +39,12 @@ module Dawg
       Enumerator.new do |result|
         node.each_edge do |letter|
           next_node = node[letter]
-          if next_node != nil
-            get_childs(next_node).each do |s|
-              result << Word.new(letter) + s
-            end
-            result << Word.new(letter, next_node.final)
+          next if next_node.nil?
+
+          get_childs(next_node).each do |s|
+            result << Word.new(letter) + s
           end
+          result << Word.new(letter, next_node.final)
         end
       end
     end
