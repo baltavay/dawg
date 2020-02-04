@@ -31,22 +31,28 @@ module Dawg
           return ['']
         end
       end
-      results << Word.new(word, node.final)
-      results += get_childs(node).map{|s| Word.new(word) + s}
-      results.select{|r| r.final}.map{|r| r.to_s }
+
+      Enumerator.new do |result|
+        result << Word.new(word, node.final).to_s if node.final
+        get_childs(node).each do |s|
+          current_word = (Word.new(word) + s)
+          result << current_word.to_s if current_word.final
+        end
+      end
     end
 
     def get_childs(node)
-      results = []
-      node.each_edge do |letter|
-        next_node = node[letter]
-        if next_node != nil
-          results += get_childs(next_node).map{|s| Word.new(letter) + s}
-          results << Word.new(letter, next_node.final)
+      Enumerator.new do |result|
+        node.each_edge do |letter|
+          next_node = node[letter]
+          if next_node != nil
+            get_childs(next_node).each do |s|
+              result << Word.new(letter) + s
+            end
+            result << Word.new(letter, next_node.final)
+          end
         end
       end
-      results
     end
   end
-
 end
