@@ -8,7 +8,7 @@ module Dawg
       node = @the_node
       word.each_char do |letter|
         next_node = node[letter]
-        return fasel if next_node.nil?
+        return false if next_node.nil?
 
         node = next_node
       end

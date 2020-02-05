@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'dawg'
-  s.version     = '0.0.6'
+  s.version     = '0.0.7'
   s.date        = '2020-02-04'
   s.summary     = 'Deterministic acyclic finite state automaton'
   s.description = 'Basic deterministic acyclic finite state automaton in ruby'
